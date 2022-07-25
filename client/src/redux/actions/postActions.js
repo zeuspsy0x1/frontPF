@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { addNewPost, addNewPostProfile } from '../reducers/userReducer.slice';
 import { addPostDetail, likesPost, dislikesPost, likesComment } from '../reducers/postReducer.slice';
+import { backend } from '../../linksDeploy';
 
 
 export const getPost = (postId) => async (dispatch) => {
     try{
-        let res = await axios.get('http://localhost:3001/post/' + postId,{
+        let res = await axios.get(`${backend}post/` + postId,{
             headers:{
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -19,7 +20,7 @@ export const getPost = (postId) => async (dispatch) => {
 
 export const createPost = (content, userId, path) => async (dispatch) => {
     try{
-        let res = await axios.post('http://localhost:3001/post/' + userId, {content: content},{
+        let res = await axios.post(`${backend}post/` + userId, {content: content},{
             headers:{
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -38,7 +39,7 @@ export const createPost = (content, userId, path) => async (dispatch) => {
 
 export const newlikePostTitle = (postId,userId) => async (dispatch) => {
     try {
-        let res = await axios.put(`http://localhost:3001/post/like/${postId}/${userId}`,{},{
+        let res = await axios.put(`${backend}post/like/${postId}/${userId}`,{},{
             headers:{
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -51,7 +52,7 @@ export const newlikePostTitle = (postId,userId) => async (dispatch) => {
 
 export const newDislikesPostTitle = (postId,userId) => async (dispatch) => {
     try {
-        let res = await axios.put(`http://localhost:3001/post/likes/${postId}/${userId}`,{},{
+        let res = await axios.put(`${backend}post/likes/${postId}/${userId}`,{},{
             headers:{
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -64,7 +65,7 @@ export const newDislikesPostTitle = (postId,userId) => async (dispatch) => {
 
 export const newLikesComment = (commentId,userId) => async (dispatch) => {
     try {
-        let res = await axios.put(`http://localhost:3001/comment/like/${commentId}/${userId}`,{},{
+        let res = await axios.put(`${backend}comment/like/${commentId}/${userId}`,{},{
             headers:{
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }

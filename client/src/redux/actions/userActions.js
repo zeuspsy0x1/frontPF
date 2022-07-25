@@ -1,9 +1,10 @@
 import { userProfile, homePosts } from "../reducers/userReducer.slice";
 import axios from "axios";
+import { backend } from "../../linksDeploy";
 
 export const getUserProfile = (id) => async (dispatch) => {
   try {
-    let res = await axios.get(`http://localhost:3001/user/${id}`, {
+    let res = await axios.get(`${backend}user/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -19,7 +20,7 @@ export const getHomePosts = (id, page) => async (dispatch) => {
   //id del usuario por params y numero de pag por query. trae de a 20 posts
   try {
     let res = await axios.get(
-      `http://localhost:3001/user/home/${id}?page=${page}`,
+      `${backend}user/home/${id}?page=${page}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -36,7 +37,7 @@ export const getHomePosts = (id, page) => async (dispatch) => {
 export const newLikeHomePost = (postId, userId, page) => async (dispatch) => {
   try {
     let res = await axios.put(
-      `http://localhost:3001/post/like/${postId}/${userId}`,
+      `${backend}post/like/${postId}/${userId}`,
       {},
       {
         headers: {
@@ -54,7 +55,7 @@ export const newDislikeHomePost =
   (postId, userId, page) => async (dispatch) => {
     try {
       let res = await axios.put(
-        `http://localhost:3001/post/like/${postId}/${userId}`,
+        `${backend}post/like/${postId}/${userId}`,
         {},
         {
           headers: {
@@ -71,7 +72,7 @@ export const newDislikeHomePost =
 export const newLikeUserProfile = (postId, userId) => async (dispatch) => {
   try {
     let res = await axios.put(
-      `http://localhost:3001/post/like/${postId}/${userId}`,
+      `${backend}post/like/${postId}/${userId}`,
       {},
       {
         headers: {
@@ -88,7 +89,7 @@ export const newLikeUserProfile = (postId, userId) => async (dispatch) => {
 export const newDislikeUserProfile = (postId, userId) => async (dispatch) => {
   try {
     let res = await axios.put(
-      `http://localhost:3001/post/like/${postId}/${userId}`,
+      `${backend}post/like/${postId}/${userId}`,
       {},
       {
         headers: {
@@ -104,7 +105,7 @@ export const newDislikeUserProfile = (postId, userId) => async (dispatch) => {
 export const modifyUser = (id, obj) => async (dispatch) => {
   //recibe Id por params, y el obj va a ser la propiedad a modificar
   try {
-    let res = await axios.put(`http://localhost:3001/user/${id}`, obj, {
+    let res = await axios.put(`${backend}user/${id}`, obj, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

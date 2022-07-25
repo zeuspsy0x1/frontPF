@@ -1,10 +1,12 @@
 import { loginUser } from '../reducers/authReducer.slice'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { backend } from '../../linksDeploy'
+
 
 export const loginAction = (obj) => async (dispatch) => {
 	try {
-		let res = await axios.post('http://localhost:3001/auth/login', obj)
+		let res = await axios.post(`${backend}auth/login`, obj)
 		res = res.data
 		localStorage.setItem('token', res.token)
 		return dispatch(loginUser({ username: res.username, _id: res._id , profilePicture: res.profilePicture}))
@@ -23,7 +25,7 @@ export const loginAction = (obj) => async (dispatch) => {
 
 export const registerAction = (obj) => async (dispatch) => {
 	try {
-		let res = await axios.post('http://localhost:3001/auth/register', obj)
+		let res = await axios.post(`${backend}auth/register`, obj)
 		res = res.data
 		localStorage.setItem('token', res.token)
 		return dispatch(loginUser({ username: res.username, _id: res._id }))
@@ -43,7 +45,7 @@ export const registerAction = (obj) => async (dispatch) => {
 export const getLoggedUserInfo = () => async (dispatch) => {
 	try {
 		let res = await axios.post(
-			'http://localhost:3001/auth',
+			`${backend}auth`,
 			{},
 			{
 				headers: {
